@@ -8,19 +8,11 @@ afterEach(() => {
   jest.clearAllMocks();
 });
 
-it.each([
-  ['person1', '1st Street', '1'],
-  ['person2', '2nd Street', '21'],
-  ['person3', '3nd Street', '321'],
-])('test successful bubble tea order req [%s]', (name, address, digits) => {
-  // Arrange
-  const dummyPaymentDetails = {
-    name: name,
-    address: address,
-    debitCard: {
-      digits: digits,
-    },
-  };
+it.each([[{name: 'person1', address: '1st', debitCard: {digits: '1'}}],
+  // eslint-disable-next-line func-call-spacing
+  [{name: 'person2', address: '2nd', debitCard: {digits: '2'}}]])
+// eslint-disable-next-line no-unexpected-multiline
+('test successful bubble tea order req', (dummyPaymentDetails) => {
   const bubbleTeaRequest = {
     paymentDetails: dummyPaymentDetails,
     bubbleTea: {
