@@ -4,24 +4,23 @@ const bubbleTeaMessenger = require('./bubble_tea_messenger');
 jest.mock('./bubble_tea_messenger');
 jest.mock('./simple_logger');
 
-let dummyPaymentDetails;
-
-beforeEach(() => {
-  dummyPaymentDetails = {
-    name: 'Some person',
-    address: '123 Some Street',
-    debitCard: {
-      digits: '123456',
-    },
-  };
-});
-
 afterEach(() => {
   jest.clearAllMocks();
 });
 
-test('test successful bubble tea order request', () => {
+it.each([
+  ['person1', '1st Street', '1'],
+  ['person2', '2nd Street', '21'],
+  ['person3', '3nd Street', '321'],
+])('test successful bubble tea order req [%s]', (name, address, digits) => {
   // Arrange
+  const dummyPaymentDetails = {
+    name: name,
+    address: address,
+    debitCard: {
+      digits: digits,
+    },
+  };
   const bubbleTeaRequest = {
     paymentDetails: dummyPaymentDetails,
     bubbleTea: {
